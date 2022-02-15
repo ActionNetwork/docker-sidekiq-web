@@ -57,6 +57,12 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
   [user, password] == [sidekiq_user, sidekiq_password]
 end
 
+Sidekiq::Web.define_method(:build_sessions) do  
+  middlewares = self.middlewares
+  return unless sessions
+  middlewares.unshift [[::Rack::Session::Cookie], nil]
+end
+
 app = Rack::Builder.new do |builder|
   builder.use SwitchEnvironment
   builder.run Sidekiq::Web
