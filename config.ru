@@ -1,6 +1,5 @@
 require 'sidekiq'
 require 'sidekiq/web'
-require 'pry'
 
 ENV_MAPPING = {
   'sidekiq.actionbuilder.org' => {
